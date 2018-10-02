@@ -10,10 +10,13 @@ import * as redisStore from "koa-redis";
 import config from "./config";
 import * as path from "path";
 
-const MAX_AGE: number =12 * 60 * 60 * 1000;
+import routing from './src/routes'
+
+const MAX_AGE: number = 12 * 60 * 60 * 1000;
+const dirName: string = __dirname;
 
 // 实例化app
-const app:Koa = new Koa();
+const app: Koa = new Koa();
 
 // 错误处理
 onError(app);
@@ -23,7 +26,7 @@ const redisConfig = {
     port: config.redis.PORT,
     host: config.redis.HOST,
     db: config.redis.DB,
-    ttl: 1000 * 60 * 60 ,               // 失效时间
+    ttl: 1000 * 60 * 60,               // 失效时间
 };
 
 // 配置session 中间件
@@ -40,9 +43,20 @@ app.use(json());
 
 // 加载日志
 app.use(logger({
-    defaultPath: path.resolve(__dirname, 'logs'),
+    defaultPath: path.resolve(dirName, 'logs'),
     applicationName: 'app'
 }));
 
+// 设置静态模板目录
+app.use(require('koa-static')(dirName + '/views'));
+
+
+// 设置模板引擎
+app.use(views(dirName + '/views', {
+    extension: 'html'
+}));
+
+// 装在路由
+routing(app);
 
 export default app;

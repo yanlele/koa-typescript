@@ -17,10 +17,14 @@
     "outDir": "build",
     "baseUrl": ".",
     "lib": ["es6", "dom", "es7"],
-    "types" : ["node"]
+    "types" : ["node"],
+    "paths": {
+      "@route": ["app/src/routes"]
+    }
   },
   "include": [
     "app/**/*",
+    "node_modules/@types/node/index.d.ts",
     "node_modules/@types/node/index.d.ts"
   ],
   "exclude": [

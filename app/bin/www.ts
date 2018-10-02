@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-import * as app from '../app';
+import app from '../app';
 import * as debug from 'debug';
 import * as http from "http";
 
@@ -22,7 +22,7 @@ var port = normalizePort(process.env.PORT || config.port);
  * Create HTTP server.
  */
 
-var server = http.createServer();
+var server = http.createServer(app.callback());
 
 /**
  * Listen on provided port, on all network interfaces.
