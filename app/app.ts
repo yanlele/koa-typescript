@@ -10,7 +10,7 @@ import * as redisStore from "koa-redis";
 import config from "./config";
 import * as path from "path";
 
-import routing from './src/routes'
+import routing from './src/routes/routing'
 
 const MAX_AGE: number = 12 * 60 * 60 * 1000;
 const dirName: string = __dirname;
@@ -57,6 +57,9 @@ app.use(views(dirName + '/views', {
 }));
 
 // 装在路由
-routing(app);
+// 初始化路由中间件
+app.use(routing.routes()).use(routing.allowedMethods({
+    throw: true
+}));
 
 export default app;

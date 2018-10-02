@@ -19,7 +19,8 @@
     "lib": ["es6", "dom", "es7"],
     "types" : ["node"],
     "paths": {
-      "@route": ["app/src/routes"]
+      "@route": ["app/src/routes"],
+      "@controller": ["app/src/controller"]
     }
   },
   "include": [
