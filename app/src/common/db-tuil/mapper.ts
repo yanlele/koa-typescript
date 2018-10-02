@@ -21,7 +21,7 @@ let query = function(sql: string, values: Array<string|object>) {
     return new Promise((resolve, reject) => {
         pool.getConnection(function(err, connection) {
             if(err) {
-                resolve(err)
+                reject(err)
             } else {
                 connection.query(sql, values, (err, rows) => {
                     if(err) {
