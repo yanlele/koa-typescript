@@ -1,25 +1,6 @@
-interface Config {
-    redis: RedisConfig,
-    mysql: MysqlConfig
-    port: number
-}
+import {IConfig} from './src/interface'
 
-interface MysqlConfig {
-    DATABASE: string,
-    USERNAME: string,
-    PASSWORD: string,
-    PORT: string,
-    HOST: string
-}
-
-interface RedisConfig {
-    PORT: number,
-    HOST: string,
-    DB: number,
-    TTL: number
-}
-
-const config: Config = {
+const config: IConfig = {
     redis: {
         PORT: 6379,
         HOST: '127.0.0.1',

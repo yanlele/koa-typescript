@@ -1,3 +1,5 @@
-import * as path from 'path'
+let arr: Array<object|string> = ['yanle', {
+    name: 'yanle'
+}];
 
-console.log(path.resolve(__dirname));
+console.log(arr);
