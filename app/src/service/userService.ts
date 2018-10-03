@@ -19,11 +19,12 @@ class UserService {
         }
 
         // 直接查库，看用户名和密码是否正确
-        rowCount = await userMapper.checkSignIn(username, password);
+        rowCount = await userMapper.checkUserByUsernameAndPassword(username, password);
         if(!rowCount) {
             return serverResponse.createErrorMessage(ResponseCode.USER_NAME_OR_PASSWORD_ERROR);
         }
 
-        // 如果都通过了之后，那么就可以
+        // 如果都通过了之后，那么就可以 直接返回用户信息
+        return await userMapper.getUserInfo(username, password);
     }
 }
