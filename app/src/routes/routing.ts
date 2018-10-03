@@ -1,8 +1,14 @@
 import * as Router from 'koa-router';
 const router:Router = new Router();
 
-import {userRouter} from './index';
+import {
+    userRouter,
+    testRouter
+} from './index';
 
-router.use('/api', userRouter.routes(), userRouter.allowedMethods());
+router.prefix('/api');
+
+router.use(userRouter.routes(), userRouter.allowedMethods());
+router.use(testRouter.routes(), testRouter.allowedMethods());
 
 export default router;

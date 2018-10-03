@@ -19,7 +19,7 @@ class TestController {
         let session: Session = ctx.session;
         let test: Test = {
             name: 'yanle',
-            age: 30
+            age: 35
         };
         session.setSession = test;
         return ctx.body = test;
