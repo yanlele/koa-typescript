@@ -8,7 +8,8 @@
 enum ResponseCode{
     USER_NAME_NOT_FOUND = '没有找到用户名',
     PASSWORD_NOT_FOUND = '没有找到密码',
-    USER_NAME_OR_PASSWORD_ERROR = '用户名或者密码错误'
+    USER_NAME_OR_PASSWORD_ERROR = '用户名或者密码错误',
+    USER_NAME_EXISTED = '用户名已经存在',
 }
 
 export default ResponseCode;
