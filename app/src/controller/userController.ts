@@ -1,3 +1,24 @@
+import {serverResponse} from '../common/util'
+import {ResponseCode} from '../enums'
+import {IServerResponse} from '../interface'
+
+
+
+class UserController {
+    // 登录接口
+    static async signIn(ctx) {
+        let body: {username: string, password: string} = ctx.request.body;
+        let {username = '', password = ''} = body;
+        if(!username || !password) {
+            serverResponse.createErrorMessage(ResponseCode.USER_NAME_OR_PASSWORD_ERROR);
+        }
+
+        // 调用登录服务
+
+
+    }
+}
+
 interface Session {
     setSession: Test
 }
@@ -5,24 +26,6 @@ interface Session {
 interface Test {
     name: string,
     age: number
-}
-
-
-class UserController {
-    static setSession(ctx) {
-        let session: Session = ctx.session;
-        let test: Test = {
-            name: 'yanle',
-            age: 30
-        };
-        session.setSession = test;
-        return ctx.body = test;
-    }
-
-    static getSession(ctx) {
-        let session: Session = ctx.session;
-        return ctx.body = session.setSession;
-    }
 }
 
 export default UserController

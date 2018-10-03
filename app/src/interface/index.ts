@@ -5,8 +5,10 @@
  */
 
 import IConfig from './IConfig';
+import IServerResponse from './IServerResponse'
 
 
 export {
-    IConfig
+    IConfig,
+    IServerResponse
 }
