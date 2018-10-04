@@ -25,6 +25,9 @@ class UserService {
         }
 
         // 如果都通过了之后，那么就可以 直接返回用户信息
-        return await userMapper.getUserInfo(username, password);
+        let userInfo =  userMapper.getUserInfo(username, password);
+        return serverResponse.createSuccessMessage('查询成功', userInfo);
     }
 }
+
+export default UserService;

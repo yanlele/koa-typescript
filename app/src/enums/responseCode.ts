@@ -10,6 +10,9 @@ enum ResponseCode{
     PASSWORD_NOT_FOUND = '没有找到密码',
     USER_NAME_OR_PASSWORD_ERROR = '用户名或者密码错误',
     USER_NAME_EXISTED = '用户名已经存在',
+    SIGN_IN_SUCCESS = '登录成功',
+
+    SUCCESS_MESSAGE = '查询成功',
 }
 
 export default ResponseCode;
