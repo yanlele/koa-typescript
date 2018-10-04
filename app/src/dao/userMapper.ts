@@ -15,7 +15,6 @@ class UserMapper {
         let sql: string = `select count(1) from mmall_user where username = ? limit 1`;
         let result = await query(sql, [username]);
         result = checkModelResult(result);
-        console.log(result);
         return result
     }
 
