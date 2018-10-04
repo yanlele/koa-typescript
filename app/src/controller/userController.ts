@@ -8,19 +8,19 @@ interface ISession {
 
 class UserController {
     // 登录接口
-    static async signIn(ctx) {
+    static async signIn(ctx){
         let body: { username?: string, password?: string } = ctx.request.body;
         let session:ISession = ctx.session;
         let username = body.username;
         let password = body.password;
         if(!username || !password) {
-            return serverResponse.createErrorMessage(ResponseCode.USER_NAME_OR_PASSWORD_ERROR);
+            return serverResponse.createByErrorMessage(ResponseCode.USER_NAME_OR_PASSWORD_ERROR);
         }
 
         // 调用登录服务
         let response = await UserService.signIn(username, password);
         if(!response.success) {
-            return serverResponse.createErrorMessage(response.message);
+            return serverResponse.createByErrorMessage(response.message);
         }
 
         // 查询用户是否登录
@@ -30,11 +30,11 @@ class UserController {
             session.userInfo = response.data;
         } else {
             // 用户已经处于登录状态
-            return serverResponse.createSuccessMessage(ResponseCode.USER_SIGN_INED);
+            return serverResponse.createBySuccessMessage(ResponseCode.USER_SIGN_INED);
         }
 
         // 返回成功
-        return serverResponse.createSuccessMessage(ResponseCode.SIGN_IN_SUCCESS);
+        return serverResponse.createBySuccessMessage(ResponseCode.SIGN_IN_SUCCESS);
     }
 
     // 退出登录
@@ -43,10 +43,10 @@ class UserController {
         let session: ISession = ctx.session;
         if(CommonTool.isObjEmpty(session.userInfo)) {
             // 用户没有登录
-            return  serverResponse.createErrorMessage(ResponseCode.USER_IS_NOT_SIGN);
+            return  serverResponse.createByErrorMessage(ResponseCode.USER_IS_NOT_SIGN);
         }else {
             session.userInfo = null;
-            return serverResponse.createSuccessMessage(ResponseCode.SIGN_OUT_SUCCESS);
+            return serverResponse.createBySuccessMessage(ResponseCode.SIGN_OUT_SUCCESS);
         }
     }
 
@@ -55,9 +55,9 @@ class UserController {
         let session:ISession = ctx.session;
         if(CommonTool.isObjEmpty(session.userInfo)) {
             // 用户没有登录
-            return  serverResponse.createErrorMessage(ResponseCode.USER_IS_NOT_SIGN);
+            return  serverResponse.createByErrorMessage(ResponseCode.USER_IS_NOT_SIGN);
         } else {
-            return serverResponse.createSuccessMessage('获取用户信息成功', session.userInfo);
+            return serverResponse.createBySuccessMessageData('获取用户信息成功', session.userInfo);
         }
     }
 }
