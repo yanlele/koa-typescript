@@ -11,7 +11,7 @@ enum ResponseCode{
     USER_NAME_OR_PASSWORD_ERROR = '用户名或者密码错误',
     USER_NAME_EXISTED = '用户名已经存在',
     SIGN_IN_SUCCESS = '登录成功',
-
+    USER_SIGN_INED = '用户已经是登录状态',
     SUCCESS_MESSAGE = '查询成功',
 }
 

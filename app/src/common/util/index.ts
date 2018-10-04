@@ -5,9 +5,9 @@
  */
 
 import serverResponse from './serverResponse';
-import commonTool from './CommonTool';
+import CommonTool from './CommonTool';
 
 export {
     serverResponse,
-    commonTool
+    CommonTool
 }
