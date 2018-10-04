@@ -7,7 +7,7 @@ router.prefix('/user');
 const userRouter = router
     .post('/signIn/',UserController.signIn)
     .get('/signOut/', UserController.signOut)
-    .post('/signUp/', UserController.signUp)
+    .post('/register/', UserController.signUp)
     .get('/user-info/', UserController.getUserInfo)
 
 

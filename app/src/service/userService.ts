@@ -45,13 +45,13 @@ class UserService {
 
         // 验证用户名是否正确
         let userInfo = await userMapper.checkUserName(username);
-        if(userInfo) {
+        if(userInfo['count(1)']) {
             return serverResponse.createByErrorMessage('用户名已经存在');
         }
 
         // 输入入库
         let responseCount = await userMapper.insertUserInfo(username, password, email);
-        if(responseCount) {
+        if(responseCount['affectedRows']) {
             return serverResponse.createBySuccessMessage('注册用户成功');
         }
         return serverResponse.createByErrorMessage('注册失败');

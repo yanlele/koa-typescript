@@ -13,13 +13,18 @@ class UserMapper {
     // 查询用户名是否存在
     public static async checkUserName(username: string) {
         let sql: string = `select count(1) from mmall_user where username = ? limit 1`;
-        return await query(sql, [username])
+        let result = await query(sql, [username]);
+        result = checkModelResult(result);
+        console.log(result);
+        return result
     }
 
     // 验证名户名密码是否正确
     static async checkUserByUsernameAndPassword(username: string, password: string) {
         let sql: string = `select count(1) from mmall_user where username = ? and password = ?`;
-        return await query(sql, [username, password]);
+        let result = await query(sql, [username, password]);
+        result = checkModelResult(result);
+        return result
     }
 
     // 获取用户信息

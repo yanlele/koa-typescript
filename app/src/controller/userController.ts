@@ -14,13 +14,13 @@ class UserController {
         let username = body.username;
         let password = body.password;
         if(!username || !password) {
-            return serverResponse.createByErrorMessage(ResponseCode.USER_NAME_OR_PASSWORD_ERROR);
+            return ctx.body = serverResponse.createByErrorMessage(ResponseCode.USER_NAME_OR_PASSWORD_ERROR);
         }
 
         // 调用登录服务
         let response:serverResponse<object> = await UserService.signIn(username, password);
         if(!response._success) {
-            return serverResponse.createByErrorMessage(response._message);
+            return ctx.body = serverResponse.createByErrorMessage(response._message);
         }
 
         // 查询用户是否登录
@@ -30,11 +30,11 @@ class UserController {
             session.userInfo = response._data;
         } else {
             // 用户已经处于登录状态
-            return serverResponse.createBySuccessMessage(ResponseCode.USER_SIGN_INED);
+            return ctx.body = serverResponse.createBySuccessMessage(ResponseCode.USER_SIGN_INED);
         }
 
         // 返回成功
-        return serverResponse.createBySuccessMessage(ResponseCode.SIGN_IN_SUCCESS);
+        return ctx.body = serverResponse.createBySuccessMessage(ResponseCode.SIGN_IN_SUCCESS);
     }
 
     // 退出登录
@@ -43,10 +43,10 @@ class UserController {
         let session: ISession = ctx.session;
         if(CommonTool.isObjEmpty(session.userInfo)) {
             // 用户没有登录
-            return  serverResponse.createByErrorMessage(ResponseCode.USER_IS_NOT_SIGN);
+            return ctx.body = serverResponse.createByErrorMessage(ResponseCode.USER_IS_NOT_SIGN);
         }else {
             session.userInfo = null;
-            return serverResponse.createBySuccessMessage(ResponseCode.SIGN_OUT_SUCCESS);
+            return ctx.body = serverResponse.createBySuccessMessage(ResponseCode.SIGN_OUT_SUCCESS);
         }
     }
 
@@ -55,9 +55,9 @@ class UserController {
         let session:ISession = ctx.session;
         if(CommonTool.isObjEmpty(session.userInfo)) {
             // 用户没有登录
-            return  serverResponse.createByErrorMessage(ResponseCode.USER_IS_NOT_SIGN);
+            return ctx.body = serverResponse.createByErrorMessage(ResponseCode.USER_IS_NOT_SIGN);
         } else {
-            return serverResponse.createBySuccessMessageData('获取用户信息成功', session.userInfo);
+            return ctx.body = serverResponse.createBySuccessMessageData('获取用户信息成功', session.userInfo);
         }
     }
 
@@ -65,14 +65,15 @@ class UserController {
     static async signUp(ctx) {
         let body = ctx.request.body;
         if(CommonTool.isObjEmpty(body)) {
-            return serverResponse.createByErrorMessage('没有填写注册信息')
+            return ctx.body = serverResponse.createByErrorMessage('没有填写注册信息')
         }
         let username: string = body.username;
         let password: string  = body.password;
         let confirmPassword: string = body.confirmPassword;
         let email: string = body.email;
 
-        let response: serverResponse<object> = await UserService.signUp(username, password, confirmPassword, email)
+        let response: serverResponse<object> = await UserService.signUp(username, password, confirmPassword, email);
+        return ctx.body = response;
     }
 }
 
