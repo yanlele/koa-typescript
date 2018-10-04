@@ -5,6 +5,7 @@ const router:Router = new Router();
 router.prefix('/user');
 
 const userRouter = router
+    .post('/signIn/',UserController.signIn)
 
 
 export default userRouter;
