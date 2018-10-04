@@ -3,7 +3,8 @@
  * connect me 331393627@qq.com
  * create time 2018-10-03 19:45
  */
-import {query} from "../common/db-tuil";
+import {query, checkModelResult} from "../common/db-util";
+import {commonTool} from '../common/util'
 
 const BaseUser: string[] =  ['id' , 'username', 'password', 'email', 'phone', 'question', 'answer', 'role', 'create_time', 'update_time'];
 const BaseUserNoPassword: string[] = ['id' , 'username', 'email', 'phone', 'question', 'answer', 'role', 'create_time', 'update_time'];
@@ -24,7 +25,9 @@ class UserMapper {
     // 获取用户信息
     static async getUserInfo(username: string , password: string) {
         let sql: string = `select ?? from mmall_user where username = ? and password = ?`;
-        return await query(sql, [BaseUserNoPassword, username, password])
+        let result = await query(sql, [BaseUserNoPassword, username, password]);
+        result = checkModelResult(result);
+        return result;
     }
 }
 
