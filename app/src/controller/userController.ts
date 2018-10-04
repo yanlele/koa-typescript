@@ -18,16 +18,16 @@ class UserController {
         }
 
         // 调用登录服务
-        let response = await UserService.signIn(username, password);
-        if(!response.success) {
-            return serverResponse.createByErrorMessage(response.message);
+        let response:serverResponse<object> = await UserService.signIn(username, password);
+        if(!response._success) {
+            return serverResponse.createByErrorMessage(response._message);
         }
 
         // 查询用户是否登录
         if(CommonTool.isObjEmpty(session.userInfo)) {
             // 如果是空的说明用户没有登录
             // 缓存用户信息
-            session.userInfo = response.data;
+            session.userInfo = response._data;
         } else {
             // 用户已经处于登录状态
             return serverResponse.createBySuccessMessage(ResponseCode.USER_SIGN_INED);

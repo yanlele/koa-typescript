@@ -12,7 +12,6 @@ import {userMapper} from '../dao'
 class UserService {
     static async signIn(username: string, password: string){
         // 查询用户明是否被占用
-        let response: serverResponse<object>;
         let rowCount = await userMapper.checkUserName(username);
         if(rowCount) {
             return serverResponse.createByErrorMessage(ResponseCode.USER_NAME_EXISTED);
@@ -26,8 +25,7 @@ class UserService {
 
         // 如果都通过了之后，那么就可以 直接返回用户信息
         let userInfo =  userMapper.getUserInfo(username, password);
-        response =  serverResponse.createBySuccessMessageData('查询成功', userInfo);
-        return response;
+        return serverResponse.createBySuccessMessageData('查询成功', userInfo);
     }
 }
 
