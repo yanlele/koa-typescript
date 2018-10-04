@@ -2,11 +2,15 @@ import {serverResponse, CommonTool} from '../common/util'
 import {ResponseCode} from '../enums'
 import {UserService} from '../service'
 
+interface ISession {
+    userInfo: object
+}
+
 class UserController {
     // 登录接口
     static async signIn(ctx) {
         let body: { username?: string, password?: string } = ctx.request.body;
-        let session = ctx.session;
+        let session:ISession = ctx.session;
         let username = body.username;
         let password = body.password;
         if(!username || !password) {
@@ -20,7 +24,7 @@ class UserController {
         }
 
         // 查询用户是否登录
-        if(CommonTool.isObjEmpty(session)) {
+        if(CommonTool.isObjEmpty(session.userInfo)) {
             // 如果是空的说明用户没有登录
             // 缓存用户信息
             session.userInfo = response.data;
@@ -31,6 +35,30 @@ class UserController {
 
         // 返回成功
         return serverResponse.createSuccessMessage(ResponseCode.SIGN_IN_SUCCESS);
+    }
+
+    // 退出登录
+    static async signOut(ctx) {
+        // 检测是否有用户信息
+        let session: ISession = ctx.session;
+        if(CommonTool.isObjEmpty(session.userInfo)) {
+            // 用户没有登录
+            return  serverResponse.createErrorMessage(ResponseCode.USER_IS_NOT_SIGN);
+        }else {
+            session.userInfo = null;
+            return serverResponse.createSuccessMessage(ResponseCode.SIGN_OUT_SUCCESS);
+        }
+    }
+
+    // 登录状态获取用户信息
+    static async getUserInfo(ctx) {
+        let session:ISession = ctx.session;
+        if(CommonTool.isObjEmpty(session.userInfo)) {
+            // 用户没有登录
+            return  serverResponse.createErrorMessage(ResponseCode.USER_IS_NOT_SIGN);
+        } else {
+            return serverResponse.createSuccessMessage('获取用户信息成功', session.userInfo);
+        }
     }
 }
 

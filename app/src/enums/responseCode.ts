@@ -13,6 +13,8 @@ enum ResponseCode{
     SIGN_IN_SUCCESS = '登录成功',
     USER_SIGN_INED = '用户已经是登录状态',
     SUCCESS_MESSAGE = '查询成功',
+    USER_IS_NOT_SIGN = '用户不是登录状态， 请重新登录',
+    SIGN_OUT_SUCCESS = '退出登录成功'
 }
 
 export default ResponseCode;

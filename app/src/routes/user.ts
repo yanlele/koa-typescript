@@ -6,6 +6,7 @@ router.prefix('/user');
 
 const userRouter = router
     .post('/signIn/',UserController.signIn)
+    .get('/signOut/', UserController.signOut)
 
 
 export default userRouter;
