@@ -4,10 +4,10 @@
  * create time 2018-10-03 19:45
  */
 import {query, checkModelResult} from "../common/db-util";
-import {commonTool} from '../common/util'
+import {CommonTool} from '../common/util'
 
-const BaseUser: string[] =  ['id' , 'username', 'password', 'email', 'phone', 'question', 'answer', 'role', 'create_time', 'update_time'];
-const BaseUserNoPassword: string[] = ['id' , 'username', 'email', 'phone', 'question', 'answer', 'role', 'create_time', 'update_time'];
+const BaseUser: string[] = ['id', 'username', 'password', 'email', 'phone', 'question', 'answer', 'role', 'create_time', 'update_time'];
+const BaseUserNoPassword: string[] = ['id', 'username', 'email', 'phone', 'question', 'answer', 'role', 'create_time', 'update_time'];
 
 class UserMapper {
     // 查询用户名是否存在
@@ -23,11 +23,24 @@ class UserMapper {
     }
 
     // 获取用户信息
-    static async getUserInfo(username: string , password: string) {
+    static async getUserInfo(username: string, password: string) {
         let sql: string = `select ?? from mmall_user where username = ? and password = ?`;
         let result = await query(sql, [BaseUserNoPassword, username, password]);
         result = checkModelResult(result);
         return result;
+    }
+
+    // 保存用户信息
+    static async insertUserInfo(username: string, password: string, email: string) {
+        let sql: string = `insert into mmall_user set ?`;
+        let param: object = {username, password, email};
+        Object.assign(param, {
+            role: 1,
+            update_time: new Date(),
+            create_time: new Date()
+        });
+
+        return await query(sql, param);
     }
 }
 

@@ -60,6 +60,20 @@ class UserController {
             return serverResponse.createBySuccessMessageData('获取用户信息成功', session.userInfo);
         }
     }
+
+    // 用户注册
+    static async signUp(ctx) {
+        let body = ctx.request.body;
+        if(CommonTool.isObjEmpty(body)) {
+            return serverResponse.createByErrorMessage('没有填写注册信息')
+        }
+        let username: string = body.username;
+        let password: string  = body.password;
+        let confirmPassword: string = body.confirmPassword;
+        let email: string = body.email;
+
+        let response: serverResponse<object> = await UserService.signUp(username, password, confirmPassword, email)
+    }
 }
 
 

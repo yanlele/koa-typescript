@@ -17,7 +17,7 @@ const mySqlConfig = {
 
 const pool: Pool = mysql.createPool(mySqlConfig);
 
-let query = function(sql: string, values: Array<string|object>): Promise<object> {
+let query = function(sql: string, values: Array<string|object> | object): Promise<object> {
     return new Promise((resolve, reject) => {
         pool.getConnection(function(err, connection) {
             if(err) {
