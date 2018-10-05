@@ -1,5 +1,6 @@
 
 --recursive
+--require intelli-espower-loader
 --require ./node_modules/ts-node/register
 --ui bdd
 --timeout 60000
