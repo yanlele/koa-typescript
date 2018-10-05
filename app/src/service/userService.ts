@@ -6,8 +6,9 @@
 
 import {serverResponse, CommonTool} from '../common/util'
 import {ResponseCode, Check} from '../enums'
-import {IServerResponse} from '../interface'
+import {IForgetToken, IServerResponse} from '../interface'
 import {userMapper} from '../dao'
+
 
 class UserService {
     static async signIn(username: string, password: string) {
@@ -97,7 +98,7 @@ class UserService {
     }
 
     // 验证问题是否正确
-    static async checkAnswer(username: string, question: string, answer: string) {
+    static async checkAnswer<IForgetToken>(username: string, question: string, answer: string){
         if (!username || !question || !answer) {
             return serverResponse.createByErrorMessage(ResponseCode.PARAM_ERROR)
         }
@@ -105,9 +106,10 @@ class UserService {
         let rowCount = await userMapper.checkAnswer(username, question, answer);
         if (rowCount['count(1)']) {
             // 返回成功
-            return serverResponse.createBySuccessMessageData('验证成功', {
-                forgetToken: CommonTool.uuid()
-            })
+            let uuid: string = CommonTool.uuid();
+            return serverResponse.createBySuccessMessageData<IForgetToken>('验证成功', {
+                forgetToken: uuid
+            });
         }
         // 返回失败
         return serverResponse.createByErrorMessage('验证失败，检查你问题和答案是否正确')

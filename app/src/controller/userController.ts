@@ -2,6 +2,8 @@ import {serverResponse, CommonTool} from '../common/util'
 import {ResponseCode} from '../enums'
 import {UserService} from '../service'
 
+import {IForgetToken} from "../interface";
+
 interface ISession {
     userInfo: object
 }
@@ -99,7 +101,14 @@ class UserController {
         let question: string = body.question;
         let answer: string = body.answer;
 
-        return ctx.body = await UserService.checkAnswer(username, question, answer);
+        let response = await UserService.checkAnswer<IForgetToken>(username, question, answer);
+        if(response._success) {
+            let session:ISession = ctx.session;
+            let userInfo: object = session.userInfo;
+            Object.assign(userInfo, {
+                forgetToken: response._data.forgetToken
+            })
+        }
     }
 }
 

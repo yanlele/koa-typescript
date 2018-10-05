@@ -6,9 +6,11 @@
 
 import IConfig from './IConfig';
 import IServerResponse from './IServerResponse'
+import {IForgetToken} from './userModul'
 
 
 export {
     IConfig,
-    IServerResponse
+    IServerResponse,
+    IForgetToken
 }
