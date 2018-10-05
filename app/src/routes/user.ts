@@ -10,6 +10,7 @@ const userRouter = router
     .post('/register/', UserController.signUp)
     .get('/user-info/', UserController.getUserInfo)
     .get('/check-valid/', UserController.checkValid)
+    .get('/forget-get-question/', UserController.forgetGetQuestion)
 
 
 
