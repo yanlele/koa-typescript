@@ -5,18 +5,18 @@
  */
 import 'mocha';
 import {expect} from "chai";
+import {
+    user
+} from './api'
+import common from './common'
+
+import app from '../app/app'
+import * as supertest from 'supertest'
+
+const request = supertest(app.listen(3000));
 
 
 describe('main', (): void => {
-    it('expect 10 = 10', function () {
-        expect(10).equal(10);
-        console.log(true);
-    });
-
-
-    describe('hello', function () {
-        it('test', function () {
-            expect(100).equal(100);
-        })
-    })
+    // common();
+    user(request)
 });
