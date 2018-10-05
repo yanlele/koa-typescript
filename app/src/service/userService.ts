@@ -4,7 +4,7 @@
  * create time 2018-10-03 18:49
  */
 
-import {serverResponse} from '../common/util'
+import {serverResponse, CommonTool} from '../common/util'
 import {ResponseCode, Check} from '../enums'
 import {IServerResponse} from '../interface'
 import {userMapper} from '../dao'
@@ -80,6 +80,20 @@ class UserService {
             default:
                 return serverResponse.createByErrorMessage('无效的验证类型');
         }
+    }
+
+
+    // 获取用户的问题
+    static async selectQuestion(username: string) {
+        if(!username) {
+            return serverResponse.createByErrorMessage(ResponseCode.USER_NAME_NOT_FOUND)
+        }
+
+        let response:object = userMapper.selectQuestionByUsername(username);
+        if(CommonTool.isObjEmpty(response)) {
+            return serverResponse.createByErrorMessage('没有查找到用户相关的问题')
+        }
+        return serverResponse.createBySuccessMessageData('获取问题成功', response);
     }
 }
 

@@ -81,10 +81,16 @@ class UserController {
         let body = ctx.request.query;
         let str: string = body.str;
         let type: string = body.type;
-        return UserService.checkValid(str, type);
+        return ctx.body =await UserService.checkValid(str, type);
     }
 
 
+    // 忘记密码， 获取问题
+    static async forgetGetQuestion(ctx) {
+        let body = ctx.request.query;
+        let username:string = body.username;
+        return ctx.body =await  UserService.selectQuestion(username);
+    }
 }
 
 

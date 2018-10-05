@@ -54,6 +54,14 @@ class UserMapper {
         result = checkModelResult(result);
         return result;
     }
+
+    // 通过用户名来查找问题
+    static async selectQuestionByUsername(username: string) {
+        let sql: string = `select question from mmall_user where username = ?`;
+        let result = await query(sql, [username]);
+        result = checkModelResult(result);
+        return result;
+    }
 }
 
 
