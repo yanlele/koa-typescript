@@ -9,6 +9,7 @@ const userRouter = router
     .get('/signOut/', UserController.signOut)
     .post('/register/', UserController.signUp)
     .get('/user-info/', UserController.getUserInfo)
+    .get('/check-valid/', UserController.checkValid)
 
 
 

@@ -83,6 +83,8 @@ class UserController {
         let type: string = body.type;
         return UserService.checkValid(str, type);
     }
+
+
 }
 
 
