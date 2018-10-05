@@ -46,6 +46,11 @@ class UserMapper {
 
         return await query(sql, param);
     }
+
+    // 查询邮箱是否正确
+    static async checkEmail(email: string) {
+
+    }
 }
 
 

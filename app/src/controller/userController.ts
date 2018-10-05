@@ -75,6 +75,14 @@ class UserController {
         let response: serverResponse<object> = await UserService.signUp(username, password, confirmPassword, email);
         return ctx.body = response;
     }
+
+    // 实时校验
+    static async checkValid(ctx) {
+        let body = ctx.request.query;
+        let str: string = body.str;
+        let type: string = body.type;
+        return UserService.checkValid(str, type);
+    }
 }
 
 

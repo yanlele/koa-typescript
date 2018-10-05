@@ -5,7 +5,7 @@
  */
 
 import {serverResponse} from '../common/util'
-import {ResponseCode} from '../enums'
+import {ResponseCode, Check} from '../enums'
 import {IServerResponse} from '../interface'
 import {userMapper} from '../dao'
 
@@ -55,6 +55,18 @@ class UserService {
             return serverResponse.createBySuccessMessage('注册用户成功');
         }
         return serverResponse.createByErrorMessage('注册失败');
+    }
+
+    // 实时校验用户类型
+    static  async checkValid(str: string , type: string) {
+        if(!str || !type) {
+            return serverResponse.createByErrorMessage(ResponseCode.PARAM_ERROR)
+        }
+        let response;
+        if(Check.USER_NAME === type) {
+            // 检测类型是邮箱
+            response = await userMapper.checkEmail(str);
+        }
     }
 }
 

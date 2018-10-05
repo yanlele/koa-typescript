@@ -71,7 +71,7 @@ export default function(request) {
                     expect(res.body).have.property('success', false);
                     done();
                 })
-        })
+        });
     });
 }
 
