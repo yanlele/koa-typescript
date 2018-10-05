@@ -6,7 +6,7 @@
 
 import {serverResponse, CommonTool} from '../common/util'
 import {ResponseCode, Check} from '../enums'
-import {IForgetToken, IServerResponse} from '../interface'
+import {IForgetToken} from '../interface'
 import {userMapper} from '../dao'
 
 
@@ -107,9 +107,10 @@ class UserService {
         if (rowCount['count(1)']) {
             // 返回成功
             let uuid: string = CommonTool.uuid();
-            return serverResponse.createBySuccessMessageData<IForgetToken>('验证成功', {
+            let data: IForgetToken = {
                 forgetToken: uuid
-            });
+            };
+            return serverResponse.createBySuccessMessageData('验证成功', data);
         }
         // 返回失败
         return serverResponse.createByErrorMessage('验证失败，检查你问题和答案是否正确')
