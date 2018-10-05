@@ -49,7 +49,10 @@ class UserMapper {
 
     // 查询邮箱是否正确
     static async checkEmail(email: string) {
-
+        let sql: string = `select count(1) mmall_user where email = ?`;
+        let result = await query(sql, [email]);
+        result = checkModelResult(result);
+        return result;
     }
 }
 

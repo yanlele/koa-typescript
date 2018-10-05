@@ -62,10 +62,23 @@ class UserService {
         if(!str || !type) {
             return serverResponse.createByErrorMessage(ResponseCode.PARAM_ERROR)
         }
-        let response;
-        if(Check.USER_NAME === type) {
-            // 检测类型是邮箱
-            response = await userMapper.checkEmail(str);
+        let rowCount;
+
+        switch (type) {
+            case Check.USER_NAME:
+                rowCount = await userMapper.checkEmail(str);
+                if(rowCount['count(1)']) {
+                    return serverResponse.createByErrorMessage('该用户邮箱已经存在');
+                }
+                return serverResponse.createBySuccessMessage('校验通过');
+            case Check.EMAIL:
+                rowCount = await userMapper.checkUserName(str);
+                if(rowCount['count(1)']) {
+                    return serverResponse.createByErrorMessage('该用户邮箱已经存在');
+                }
+                return serverResponse.createBySuccessMessage('校验通过');
+            default:
+                return serverResponse.createByErrorMessage('无效的验证类型');
         }
     }
 }
