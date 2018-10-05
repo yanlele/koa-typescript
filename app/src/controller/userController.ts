@@ -91,6 +91,16 @@ class UserController {
         let username:string = body.username;
         return ctx.body =await  UserService.selectQuestion(username);
     }
+
+    // 通过回答问题，获取该用户唯一标示的token
+    static async forgetCheckAnswer(ctx) {
+        let body = ctx.request.query;
+        let username: string  = body.username;
+        let question: string = body.question;
+        let answer: string = body.answer;
+
+        return ctx.body = await UserService.checkAnswer(username, question, answer);
+    }
 }
 
 

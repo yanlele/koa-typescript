@@ -62,6 +62,15 @@ class UserMapper {
         result = checkModelResult(result);
         return result;
     }
+
+
+    // 通过用户名，问题， 验证用户是否存在
+    static async checkAnswer(username: string , question: string , answer: string) {
+        let sql: string  = `select count(1) from mmall_user where username=? and question=? and answer=?`;
+        let result = await query(sql, [username, question, answer]);
+        result = checkModelResult(result);
+        return result;
+    }
 }
 
 
