@@ -11,6 +11,8 @@ const userRouter = router
     .get('/user-info/', UserController.getUserInfo)
     .get('/check-valid/', UserController.checkValid)
     .get('/forget-get-question/', UserController.forgetGetQuestion)
+    .get('/forget-check-answer/', UserController.forgetCheckAnswer)
+
 
 
 

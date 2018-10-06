@@ -110,6 +110,32 @@ class UserController {
                 forgetToken: response._data.forgetToken
             })
         }
+
+        return ctx.body = response;
+    }
+
+
+    // 通过问题答案和token， 来重置密码
+    static async forgetRestPassword(ctx) {
+        let body = ctx.request.query;
+        let username: string  = body.username;
+        let passwordNew: string = body.passwordNew;
+        let forgetToken: string = body.forgetToken;
+
+        if(!username || !passwordNew || !forgetToken) {
+            return ctx.body = serverResponse.createByErrorMessage(ResponseCode.PARAM_ERROR)
+        }
+
+        // 验证forgetToken是否相同
+        let session = ctx.session;
+        if(CommonTool.isObjEmpty(session.userInfo)) {
+            return ctx.body = serverResponse.createByErrorMessage(ResponseCode.USER_IS_NOT_SIGN)
+        }
+        let response;
+        if(session.userInfo && session.userInfo.forgetToken === forgetToken) {
+            // token 验证通过 调用服务层
+            response  = await UserService.forgetResetPassword(username, passwordNew);
+        }
     }
 }
 

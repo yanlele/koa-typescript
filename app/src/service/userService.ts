@@ -113,6 +113,16 @@ class UserService {
         // 返回失败
         return serverResponse.createByErrorMessage<{forgetToken: string}>('验证失败，检查你问题和答案是否正确')
     }
+
+    // 重置密码
+    static async forgetResetPassword(username: string , passwordNew: string) {
+        let rowCount = await userMapper.checkUserName(username);
+        if(!rowCount['count(1)']) {
+            return serverResponse.createByErrorMessage(ResponseCode.USER_NAME_EXISTED)
+        }
+        let response = await userMapper.updatePasswordByUsername(username, passwordNew);
+        // todo
+    }
 }
 
 export default UserService;
