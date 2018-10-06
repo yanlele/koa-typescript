@@ -10,9 +10,9 @@ import {UserManageController} from '../../controller'
 const router:Router = new Router();
 router.prefix('/manage/user');
 
-const userRouter = router
+const userManageRouter = router
     .post('/signIn/',UserManageController.signIn)
 
 
 
-export default userRouter;
+export default userManageRouter;
