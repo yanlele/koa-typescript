@@ -108,7 +108,8 @@ class UserController {
             let userInfo: object = session.userInfo;
             Object.assign(userInfo, {
                 forgetToken: response._data.forgetToken
-            })
+            });
+            session.userInfo = userInfo;
         }
 
         return ctx.body = response;
@@ -135,7 +136,17 @@ class UserController {
         if(session.userInfo && session.userInfo.forgetToken === forgetToken) {
             // token 验证通过 调用服务层
             response  = await UserService.forgetResetPassword(username, passwordNew);
+            if(response._success) {
+                // 清空session中的forgetToken
+                let userInfo: object = session.userInfo;
+                Object.assign(userInfo, {
+                    forgetToken: null
+                });
+                session.userInfo = userInfo;
+            }
+            return ctx.body = response
         }
+        return ctx.body = serverResponse.createByErrorMessage('token验证失败');
     }
 }
 

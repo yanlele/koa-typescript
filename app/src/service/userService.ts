@@ -121,7 +121,10 @@ class UserService {
             return serverResponse.createByErrorMessage(ResponseCode.USER_NAME_EXISTED)
         }
         let response = await userMapper.updatePasswordByUsername(username, passwordNew);
-        // todo
+        if(response['affectedRows']) {
+            return serverResponse.createBySuccessMessage('更新密码成功');
+        }
+        return serverResponse.createByErrorMessage('更新密码失败')
     }
 }
 
