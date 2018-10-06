@@ -14,7 +14,7 @@ interface ISignIn{
 }
 
 class UserManageController {
-    public static async  SignIn(ctx) {
+    public static async  signIn(ctx) {
         let body: ISignIn = ctx.request.query;
         let username: string = body.username;
         let password: string = body.password;
