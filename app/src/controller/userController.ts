@@ -161,6 +161,7 @@ class UserController {
         if(session.userInfo && session.userInfo.username === username) {
             return ctx.body = await UserService.resetPassword(username, passwordNew, passwordOld);
         }
+        return ctx.body = serverResponse.createByErrorMessage('当前用户没有登录');
     }
 }
 

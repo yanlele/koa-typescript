@@ -74,12 +74,20 @@ class UserMapper {
 
     // 通过用户名修改密码
     static async updatePasswordByUsername(username: string, passwordNew: string) {
-        let sql: string = `update mmall_user set ?`;
+        let sql: string = `update mmall_user set ? where username = ?`;
         let param: object = {
-            username,
             password: passwordNew
         };
-        return await query(sql, param);
+        return await query(sql, [param, username]);
+    }
+
+    // 通过用户名和旧密码，更改新的密码
+    static async updatePasswordByUsernameAndPasswordOld(username: string ,passwordNew: string ,passwordOld: string) {
+        let sql: string = `update mmall_user set ? where username=? and password=?`;
+        let param: object = {
+            password: passwordNew
+        }
+        return await query(sql, [param, username, passwordNew])
     }
 }
 

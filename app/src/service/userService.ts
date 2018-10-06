@@ -135,7 +135,11 @@ class UserService {
         }
 
         let response;
-        // response = await userMapper.updatePasswordByUsernameAndPasswordOld()
+        response = await userMapper.updatePasswordByUsernameAndPasswordOld(username, passwordNew,passwordOld);
+        if(response['affectedRows']) {
+            return serverResponse.createBySuccessMessage('更新密码成功');
+        }
+        return serverResponse.createByErrorMessage('更新密码失败');
     }
 }
 
