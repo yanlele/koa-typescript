@@ -91,7 +91,8 @@ class UserController {
     static async forgetGetQuestion(ctx) {
         let body = ctx.request.query;
         let username:string = body.username;
-        return ctx.body =await  UserService.selectQuestion(username);
+        let response = await UserService.selectQuestion(username);
+        return ctx.body =await UserService.selectQuestion(username);
     }
 
     // 通过回答问题，获取该用户唯一标示的token
@@ -101,7 +102,7 @@ class UserController {
         let question: string = body.question;
         let answer: string = body.answer;
 
-        let response = await UserService.checkAnswer<IForgetToken>(username, question, answer);
+        let response = await UserService.checkAnswer(username, question, answer);
         if(response._success) {
             let session:ISession = ctx.session;
             let userInfo: object = session.userInfo;

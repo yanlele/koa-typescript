@@ -98,22 +98,22 @@ class UserService {
     }
 
     // 验证问题是否正确
-    static async checkAnswer<IForgetToken>(username: string, question: string, answer: string){
+    static async checkAnswer(username: string, question: string, answer: string) {
         if (!username || !question || !answer) {
-            return serverResponse.createByErrorMessage(ResponseCode.PARAM_ERROR)
+            return serverResponse.createByErrorMessage<IForgetToken>(ResponseCode.PARAM_ERROR)
         }
 
         let rowCount = await userMapper.checkAnswer(username, question, answer);
         if (rowCount['count(1)']) {
             // 返回成功
             let uuid: string = CommonTool.uuid();
-            let data: IForgetToken = {
+            let data = {
                 forgetToken: uuid
             };
-            return serverResponse.createBySuccessMessageData('验证成功', data);
+            return serverResponse.createBySuccessMessageData<IForgetToken>('验证成功', data);
         }
         // 返回失败
-        return serverResponse.createByErrorMessage('验证失败，检查你问题和答案是否正确')
+        return serverResponse.createByErrorMessage<IForgetToken>('验证失败，检查你问题和答案是否正确')
     }
 }
 
