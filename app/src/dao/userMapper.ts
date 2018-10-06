@@ -86,8 +86,21 @@ class UserMapper {
         let sql: string = `update mmall_user set ? where username=? and password=?`;
         let param: object = {
             password: passwordNew
-        }
+        };
         return await query(sql, [param, username, passwordNew])
+    }
+
+    // 通过id 验证是否有emial
+    static async checkEmailByUserId(email: string, id: string) {
+        let sql: string = `select count(1) from mmall_user where email=? and id!=?`;
+        let result = await query(sql, [email, id]);
+        return checkModelResult(result);
+    }
+
+    // 更新用户相关的信息
+    static async updateUserInfo(user) {
+        let sql : string  = `update mmall_user set ? where id=?`;
+        return await query(sql, [user, user.id]);
     }
 }
 

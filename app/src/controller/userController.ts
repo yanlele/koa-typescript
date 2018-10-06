@@ -163,6 +163,22 @@ class UserController {
         }
         return ctx.body = serverResponse.createByErrorMessage('当前用户没有登录');
     }
+
+
+    // 更新用户信息
+    static async updateInformation(ctx) {
+        let body = ctx.reqeust.body;
+        let user = body.user;
+        let userInfo = ctx.session.userInfo;
+        if(!userInfo) {
+            return serverResponse.createByErrorMessage('用户没有登录');
+        }
+        // 不允许更改id和username
+        user.id = userInfo.id;
+        user.username = userInfo.username;
+
+        return ctx.body = UserService.updateInformation(userInfo);
+    }
 }
 
 

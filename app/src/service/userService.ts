@@ -141,6 +141,21 @@ class UserService {
         }
         return serverResponse.createByErrorMessage('更新密码失败');
     }
+
+    // 更新用户信息
+    static async updateInformation(user) {
+        let rowCount =await userMapper.checkEmailByUserId(user.email, user.id);
+        if(rowCount['count(1)']) {
+            return serverResponse.createByErrorMessage('email已经存在，请更换email之后在尝试');
+        }
+        // 更新操作
+        rowCount = await userMapper.updateUserInfo(user);
+        if(rowCount['affectedRows']) {
+            return serverResponse.createBySuccessMessage('更新用户信息成功')
+        }
+
+        return serverResponse.createByErrorMessage('更新用户信息失败');
+    }
 }
 
 export default UserService;

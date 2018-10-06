@@ -13,7 +13,8 @@ const userRouter = router
     .get('/forget-get-question/', UserController.forgetGetQuestion)
     .get('/forget-check-answer/', UserController.forgetCheckAnswer)
     .get('/forget-reset-password/', UserController.forgetRestPassword)
-    .get('/reset-password', UserController.resetPassword)
+    .get('/reset-password/', UserController.resetPassword)
+    .post('/update-information/', UserController.updateInformation)
 
 
 
