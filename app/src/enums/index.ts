@@ -4,9 +4,10 @@
  * create time 2018-10-03 18:46
  */
 import ResponseCode from './responseCode'           // 返回状态枚举
-import {Check} from "./check";
+import {Check, Role} from "./check";
 
 export {
     ResponseCode,
-    Check
+    Check,
+    Role
 }

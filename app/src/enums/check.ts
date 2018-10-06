@@ -8,3 +8,8 @@ export enum Check {
     USER_NAME = 'username',
     EMAIL = 'email'
 }
+
+export enum Role {
+    ROLE_CUSTOMER = 0,  // 普通用户
+    ROLE_ADMIN = 1      // 管理员
+}
