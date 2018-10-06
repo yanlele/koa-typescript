@@ -126,6 +126,17 @@ class UserService {
         }
         return serverResponse.createByErrorMessage('更新密码失败')
     }
+
+    // 登录状态重置密码
+    static async resetPassword(username: string , passwordNew: string , passwordOld: string) {
+        let rowCount = await userMapper.checkUserName(username);
+        if(!rowCount['count(1)']) {
+            return serverResponse.createByErrorMessage(ResponseCode.USER_NAME_EXISTED)
+        }
+
+        let response;
+        // response = await userMapper.updatePasswordByUsernameAndPasswordOld()
+    }
 }
 
 export default UserService;

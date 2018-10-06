@@ -148,6 +148,20 @@ class UserController {
         }
         return ctx.body = serverResponse.createByErrorMessage('token验证失败');
     }
+
+
+    // 登录状态修改密码
+    static async resetPassword(ctx) {
+        let body = ctx.request.body;
+        let passwordOld: string = body.passwordOld;
+        let passwordNew: string = body.passwordNew;
+        let username: string = body.username;
+
+        let session = ctx.session;
+        if(session.userInfo && session.userInfo.username === username) {
+            return ctx.body = await UserService.resetPassword(username, passwordNew, passwordOld);
+        }
+    }
 }
 
 

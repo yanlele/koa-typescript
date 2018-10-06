@@ -12,7 +12,7 @@ const userRouter = router
     .get('/check-valid/', UserController.checkValid)
     .get('/forget-get-question/', UserController.forgetGetQuestion)
     .get('/forget-check-answer/', UserController.forgetCheckAnswer)
-
+    .get('/forget-reset-password/', UserController.forgetRestPassword)
 
 
 
