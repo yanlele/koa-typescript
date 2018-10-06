@@ -15,6 +15,7 @@ const userRouter = router
     .get('/forget-reset-password/', UserController.forgetRestPassword)
     .get('/reset-password/', UserController.resetPassword)
     .post('/update-information/', UserController.updateInformation)
+    .get('/getInformation', UserController.getUserInfo);
 
 
 

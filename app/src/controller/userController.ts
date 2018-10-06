@@ -179,6 +179,15 @@ class UserController {
 
         return ctx.body = UserService.updateInformation(userInfo);
     }
+
+    // 通过主键id查询的用户信息
+    static async getInformation(ctx) {
+        let userInfo = ctx.session.userInfo;
+        if(CommonTool.isObjEmpty(userInfo)) {
+            return serverResponse.createByErrorMessage(ResponseCode.USER_IS_NOT_SIGN)
+        }
+        return UserService.getInformation(userInfo.id);
+    }
 }
 
 

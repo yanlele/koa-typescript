@@ -5,6 +5,7 @@
  */
 import {query, checkModelResult} from "../common/db-util";
 import {CommonTool} from '../common/util'
+import {userMapper} from "./index";
 
 const BaseUser: string[] = ['id', 'username', 'password', 'email', 'phone', 'question', 'answer', 'role', 'create_time', 'update_time'];
 const BaseUserNoPassword: string[] = ['id', 'username', 'email', 'phone', 'question', 'answer', 'role', 'create_time', 'update_time'];
@@ -101,6 +102,13 @@ class UserMapper {
     static async updateUserInfo(user) {
         let sql : string  = `update mmall_user set ? where id=?`;
         return await query(sql, [user, user.id]);
+    }
+
+    // 通过id查询用户所有信息
+    static async selectUserInfo(id: string) {
+        let sql: string = `select ?? from mmall_user where id=?`;
+        let result = await query(sql, [BaseUser, id]);
+        return checkModelResult(result);
     }
 }
 

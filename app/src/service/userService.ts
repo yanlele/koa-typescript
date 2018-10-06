@@ -156,6 +156,19 @@ class UserService {
 
         return serverResponse.createByErrorMessage('更新用户信息失败');
     }
+
+    // 根据id查询用户的所有信息
+    static async getInformation(id: string) {
+        if(!id) {
+            return serverResponse.createByErrorMessage(ResponseCode.PARAM_ERROR)
+        }
+        let response = await userMapper.selectUserInfo(id);
+        if(!CommonTool.isObjEmpty(response)) {
+            return serverResponse.createBySuccessMessageData('查询成功', response)
+        }
+        return serverResponse.createBySuccessMessage('查询失败');
+    }
+
 }
 
 export default UserService;
